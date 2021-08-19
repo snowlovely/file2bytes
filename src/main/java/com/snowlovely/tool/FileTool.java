@@ -20,13 +20,17 @@ public class FileTool extends Thread{
     public void generateBytes() throws IOException {
         String filePath = FileToBytesGui.getFilePath();
         byte[] buf = new byte[1024];
+        byte[] temp = new byte[102];
         FileInputStream fileInputStream = null;
         String bytesArray = "";
+
         try {
              fileInputStream = new FileInputStream(filePath);
+
             int readLen = 0;
-            while(( fileInputStream.read(buf) ) != -1) {
-                String tempBytesArray = Arrays.toString(buf);
+            while((readLen = fileInputStream.read(buf) ) != -1) {
+                temp = Arrays.copyOf(buf, readLen);
+                String tempBytesArray = Arrays.toString(temp);
                 if (bytesArray != null) {
                     bytesArray.replace("]","");
                     tempBytesArray.replace("[","");
